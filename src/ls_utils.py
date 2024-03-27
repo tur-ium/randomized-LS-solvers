@@ -3,12 +3,10 @@ import numpy as np
 
 from utils import *
 
-def convert_rdd(rdd, unicode=None):
+def convert_rdd(rdd):
     row = rdd.first()
-    if isinstance(row, unicode):
-        rdd = rdd.map(lambda row: np.array([float(x) for x in row.split(' ')]))
-    else:
-        rdd = rdd.map(lambda row: np.array(row))
+
+    rdd = rdd.map(lambda row: np.array(row))
 
     return rdd
 
