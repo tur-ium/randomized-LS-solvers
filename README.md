@@ -4,6 +4,11 @@ This is a collection of codes that implement algorithms for solving large-scale 
 
 by *Jiyan Yang* (jiyanyang12@gmail.com)
 
+## Changes
+(by tur-ium)
+
+- Updated syntax to Python 3 (e.g. `print "hello"` -> `print("hello")`, `xrange`->`range` [source](https://stackoverflow.com/questions/15014310/why-is-there-no-xrange-function-in-python3), etc)
+
 ## About
 Given *A*(*n*-by-*d*) and *b*(*n*-by-*1*), the least-squares regression problem is to solve:
     min_*x* ||*Ax-b*||_2.

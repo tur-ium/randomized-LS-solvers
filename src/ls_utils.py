@@ -26,7 +26,7 @@ def add_index(rdd):
 
     return rdd.mapPartitionsWithIndex(func)
 
-def get_x(pa,return_N=False):
+def get_x(pa,return_N: bool=False):
     A = pa[:,:-1]
     b = pa[:,-1]
     m = A.shape[0]
@@ -35,7 +35,7 @@ def get_x(pa,return_N=False):
     N = V.transpose()/s
 
     if return_N:
-        return (N, np.dot(N, np.dot(U.T,b)))
+        return N, np.dot(N, np.dot(U.T, b))
     else:
         return np.dot(N, np.dot(U.T,b))
 

@@ -8,7 +8,7 @@ from comp_sketch import comp_sketch
 
 class MatrixMultiplicationTestCase(unittest.TestCase):
     def setUp(self):
-        self.matrix_Ab = RowMatrix(matrix_rdd,'test_data',1000,10)
+        self.matrix_Ab = RowMatrix(matrix_rdd,'test_data',1000.,10.)
 
     def test_mat_rtimes(self):
         vec = np.random.rand(10)
@@ -31,7 +31,7 @@ class MatrixMultiplicationTestCase(unittest.TestCase):
 
 class ProjectionTestCase(unittest.TestCase):
     def setUp(self):
-        self.matrix_Ab = RowMatrix(matrix_rdd,'test_data',1000,10)
+        self.matrix_Ab = RowMatrix(matrix_rdd,'test_data',1000.,10.)
 
     def test_projection_Gaussian_x(self):
         proj = Projections(projection_type='gaussian',sc=sc,c=1e2,k=3)
@@ -65,7 +65,7 @@ class ProjectionTestCase(unittest.TestCase):
 
 class SketchTestCase(unittest.TestCase):
     def setUp(self):
-        self.matrix_Ab = RowMatrix(matrix_rdd,'test_data',1000,10)
+        self.matrix_Ab = RowMatrix(matrix_rdd,'test_data',1000.,10.)
         self.N_dire = 'N/'
 
     def test_sketch_projection_x(self):
