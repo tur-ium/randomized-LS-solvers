@@ -118,7 +118,7 @@ def main(argv):
         raise ValueError('Please enter a projection size!')
 
     # loading configuration file
-    config = ConfigParser.RawConfigParser()
+    config = ConfigParser()
     config.read(args.setting_filename)
 
     data_dir = config.get('local_directories','data_dir')
