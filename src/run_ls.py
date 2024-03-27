@@ -1,16 +1,17 @@
-from pyspark import SparkContext
+import argparse
+import logging.config
+import os
+import sys
+from configparser import ConfigParser
+
+import numpy as np
 from pyspark import SparkConf
+from pyspark import SparkContext
+
 from least_squares import RandLeastSquares
 from rowmatrix import RowMatrix
 from utils import pickle_write
-import time
-import sys
-import os
-import argparse
-import ConfigParser
-import scipy.stats
-import numpy as np
-import logging.config
+
 
 def print_params(args, logger):
     logger.info('------------------------------------------------------------')

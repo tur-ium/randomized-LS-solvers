@@ -30,9 +30,9 @@ class Sampling(object):
         SA = self.__sample(matrix, s, lev_sum)
 
         if objective == 'x':
-            return SA.map(lambda (key,sa): get_x(sa,return_N)).collect()
+            return SA.map(lambda key,sa: get_x(sa,return_N)).collect()
         elif objective == 'N':
-            return SA.map(lambda (key,sa): get_N(sa)).collect()
+            return SA.map(lambda key,sa: get_N(sa)).collect()
         else:
             raise ValueError('Please enter a valid objective!')
 
@@ -58,7 +58,7 @@ class SampleMapper(BlockMapper):
     def process(self, N, s, lev_sum):
         data = np.vstack(self.data)
         np.random.seed()
-        for i in xrange(len(N)):
+        for i in range(len(N)):
             lev = np.sum( np.dot(data[:,:-1], N[i])**2, axis=1)
             p = lev*s/lev_sum[i]
             p[ p>1 ] = 1.0

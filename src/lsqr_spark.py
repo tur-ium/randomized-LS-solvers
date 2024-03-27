@@ -64,7 +64,7 @@ def lsqr_spark( matrix_Ab, m, n, N, tol=1e-14, iter_lim=None):
     if iter_lim is None:
         iter_lim = np.max( [20, 2*np.min([m,n])] )
 
-    for itn in xrange(int(iter_lim)):
+    for itn in range(int(iter_lim)):
 
         u = matrix_Ab.rtimes_vec(np.dot(N,v)).squeeze() - alpha*u
         beta = norm(u)

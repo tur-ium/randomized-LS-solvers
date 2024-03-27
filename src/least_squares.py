@@ -66,7 +66,7 @@ class RandLeastSquares:
         self.time = time
 
         if debug:
-            print self.x
+            print (self.x)
 
     def __comp_cost(self,x,stack_type,repnum,b=None):
         if stack_type == 1:

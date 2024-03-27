@@ -3,7 +3,7 @@ import numpy as np
 
 from utils import *
 
-def convert_rdd(rdd):
+def convert_rdd(rdd, unicode=None):
     row = rdd.first()
     if isinstance(row, unicode):
         rdd = rdd.map(lambda row: np.array([float(x) for x in row.split(' ')]))
@@ -14,7 +14,7 @@ def convert_rdd(rdd):
 
 def comp_l2_obj(Ab_rdd, x):
     # x is a np array
-    return np.sqrt( Ab_rdd.map( lambda (key,row): (np.dot(row[:-1],x) - row[-1])**2 ).reduce(add) )
+    return np.sqrt( Ab_rdd.map( lambda key,row: (np.dot(row[:-1],x) - row[-1])**2 ).reduce(add) )
 
 def add_index(rdd): 
     starts = [0] 

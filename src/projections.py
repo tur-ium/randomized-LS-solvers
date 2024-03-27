@@ -39,9 +39,9 @@ class Projections(object):
         logger.info('In projections, computing {0}!'.format(objective))
         PA = self.__project(rowmatrix)
         if objective == 'x':
-            return PA.map(lambda (key,pa): get_x(pa,return_N)).collect()
+            return PA.map(lambda key,pa: get_x(pa,return_N)).collect()
         elif objective == 'N':
-            return PA.map(lambda (key,pa): get_N(pa)).collect()
+            return PA.map(lambda key,pa: get_N(pa)).collect()
         else:
             raise ValueError('Please enter a valid objective!')
 
@@ -62,7 +62,7 @@ class Projections(object):
             srdm = SRDHTMapper(self.c, self.k, rowmatrix.m, seed_s)
             PA = rowmatrix.rdd.mapPartitions(srdm)
 
-        PA = PA.reduceByKey(add).map(lambda (key,pa): (key[0],pa)).reduceByKey(lambda x,y: np.vstack((x,y)))
+        PA = PA.reduceByKey(add).map(lambda key,pa: (key[0],pa)).reduceByKey(lambda x,y: np.vstack((x,y)))
 
         return PA
 
@@ -80,7 +80,7 @@ class CWMapper(BlockMapper):
         np.random.seed()
         rt = np.random.randint(self.c,size=self.k).tolist()
         coin = (np.random.rand(self.k)<0.5)*2-1
-        for i in xrange(self.k):
+        for i in range(self.k):
             yield ((i,rt[i]),coin[i]*row)
 
 class GaussianMapper(BlockMapper):
@@ -95,7 +95,7 @@ class GaussianMapper(BlockMapper):
         r = data.shape[0]
 
         np.random.seed()
-        for i in xrange(self.k):
+        for i in range(self.k):
             if self.PA[i] is None:
                 self.PA[i] = np.dot(np.random.randn(self.c,r),data)/np.sqrt(self.c)
             else:
@@ -104,7 +104,7 @@ class GaussianMapper(BlockMapper):
         return iter([])
 
     def close(self):
-        for i in xrange(self.k):
+        for i in range(self.k):
             block_sz = 500
             m = self.PA[0].shape[0]
             start_idx = np.arange(0, m, block_sz)
@@ -125,7 +125,7 @@ class RademacherMapper(BlockMapper):
         r = data.shape[0]
 
         np.random.seed()
-        for i in xrange(self.k):
+        for i in range(self.k):
             if self.PA[i] is None:
                 self.PA[i] = np.dot((np.random.rand(self.c,r)<0.5)*2-1,data)/np.sqrt(self.c)
             else:
@@ -134,7 +134,7 @@ class RademacherMapper(BlockMapper):
         return iter([])
 
     def close(self):
-        for i in xrange(self.k):
+        for i in range(self.k):
             block_sz = 500
             m = self.PA[0].shape[0]
             start_idx = np.arange(0, m, block_sz)
@@ -157,7 +157,7 @@ class SRDHTMapper(BlockMapper):
         r = data.shape[0]
         row_idx = np.array(self.keys)
 
-        for i in xrange(self.k):
+        for i in range(self.k):
             S = np.arange(self.m)
             np.random.seed(self.seed_s[i])
             np.random.shuffle(S)
@@ -174,7 +174,7 @@ class SRDHTMapper(BlockMapper):
         return iter([])
 
     def close(self):
-        for i in xrange(self.k):
+        for i in range(self.k):
             block_sz = 500
             m = self.PA[0].shape[0]
             start_idx = np.arange(0, m, block_sz)
